@@ -40,14 +40,14 @@ const thoughtSchema = new Schema(
     thoughtText: {
       type: String,
       required: true,
-      min_length: 1,
-      max_length: 280
+      minlength: 1,
+      maxlength: 280
     },
 
     createdAt: {
       type: Date,
       default: Date.now,
-      get: (createdAtVal) => moment(createdAtVal).format('MMM DD, YYYY [at] hh:mm a')
+      get: (createdAt) => moment(createdAt).format('MMM DD, YYYY [at] hh:mm a')
     },
 
     username: {
@@ -68,10 +68,10 @@ const thoughtSchema = new Schema(
 );
 
 
-const Thought = model('course', thoughtSchema);
+const Thought = model('Thought', thoughtSchema);
 
-thoughtSchema.virtual('reactionCount').get(function() {
-  return this.reactions.length
-});
+// thoughtSchema.virtual('reactionCount').get(function() {
+//   return this.reactions.length
+// });
 
 module.exports = Thought;
