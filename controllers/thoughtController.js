@@ -3,16 +3,13 @@ const { populate } = require("../models/User")
 
 const thoughtController = {
 
+    // Gets all thoughts in system
     getAllThoughts(req, res) {
         Thought.find({})
         .populate({
             path: "reactions",
             select: "-__v"
         })
-        // .populate({
-        //     path: "thoughts",
-        //     select: "-__v"
-        // })
         .select("-__v")
         .then((dbThoughtData) => res.json(dbThoughtData))
         .catch((err) => {
@@ -21,6 +18,7 @@ const thoughtController = {
         });
     },
 
+    // Gets one specific thought using it's id
     getThoughtById({ params }, res) {
         Thought.findOne({ _id: params.id })
         .then((dbThoughtData) => {
@@ -36,6 +34,7 @@ const thoughtController = {
         })
     },
 
+    // Creates a thought using params provided
     createThought({ body }, res) {
         console.log(body);
         Thought.create(body)
@@ -56,6 +55,7 @@ const thoughtController = {
         .catch((err) => res.json(err))
     },
 
+    // Updates a thought using params provided
     updateThought({ params, body }, res) {
         Thought.findOneAndUpdate({ _id: params.id }, body, { new: true })
         .then((dbThoughtData) => {
@@ -68,6 +68,7 @@ const thoughtController = {
         .catch((err) => res.status(400).json(err))
     },
 
+    // Removes a thought using it's id
     removeThought({ params }, res) {
         Thought.findOneAndDelete({ _id: params.id })
         .then((dbThoughtData) => {
@@ -80,6 +81,7 @@ const thoughtController = {
         .catch((err) => res.status(400).json(err))
     },
 
+    // Creates a reaction linked to a thought
     createReaction({ params, body}, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },
@@ -96,6 +98,7 @@ const thoughtController = {
         .catch((err) => res.status(400).json(err))
     },
 
+    // Removes a reaction using it's id
     removeReaction({ params }, res) {
         Thought.findOneAndUpdate(
             { _id: params.thoughtId },

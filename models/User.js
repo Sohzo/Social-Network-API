@@ -1,6 +1,7 @@
 const { Schema, model } = require('mongoose');
 const { default: isEmail } = require('validator/lib/isEmail');
 
+// Schema for creating a new user
 const userSchema = new Schema(
   {
     username: {
@@ -37,10 +38,6 @@ const userSchema = new Schema(
   }
 );
 
-
-// userSchema.virtual('friendCount').get(function() {
-//   return this.friends.length;
-// });
 
 const User = model('User', userSchema)
 

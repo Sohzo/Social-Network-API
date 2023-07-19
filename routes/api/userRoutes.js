@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+// Gets all functions for user routes
 const {
 
   getUsers,
@@ -12,15 +13,23 @@ const {
 
 } = require('../../controllers/userController');
 
+// Routes for getting all users and creating new users
 router
 .route('/')
 .get(getUsers)
 .post(createUser);
 
+// Gets, updates, or deletes a user using it's id
 router
-.route("/:id").get(getUserById).put(updateUser).delete(deleteUser)
+.route("/:id")
+.get(getUserById)
+.put(updateUser)
+.delete(deleteUser)
 
+// Adds or removes a friend of a user using it's id
 router
-.route("/:id/friends/:friendsId").post(addFriend).delete(removeFriend)
+.route("/:id/friends/:friendsId")
+.post(addFriend)
+.delete(removeFriend)
 
 module.exports = router;
